@@ -92,6 +92,7 @@ fun ReplyHomeScreen(
     )
 
     if (navigationType == ReplyNavigationType.PERMANENT_NAVIGATION_DRAWER) {
+        val navigationDrawerContentDescription = stringResource(R.string.navigation_drawer)
         PermanentNavigationDrawer(
             drawerContent = {
                 PermanentDrawerSheet(modifier = Modifier.width(dimensionResource(R.dimen.drawer_width))) {
@@ -106,7 +107,8 @@ fun ReplyHomeScreen(
                             .padding(dimensionResource(R.dimen.drawer_padding_content))
                     )
                 }
-            }
+            },
+            modifier = Modifier.testTag(navigationDrawerContentDescription)
         ) {
             ReplyAppContent(
                 navigationType = navigationType,
@@ -130,11 +132,12 @@ fun ReplyHomeScreen(
                 modifier = modifier
             )
         } else {
+            val detailsScreenContentDescription = stringResource(R.string.details_screen)
             ReplyDetailsScreen(
                 replyUiState = replyUiState,
                 isFullScreen = true,
                 onBackPressed = onDetailScreenBackPressed,
-                modifier = modifier
+                modifier = modifier.testTag(detailsScreenContentDescription)
             )
         }
     }
@@ -176,7 +179,8 @@ private fun ReplyAppContent(
                 ReplyListOnlyContent(
                     replyUiState = replyUiState,
                     onEmailCardPressed = onEmailCardPressed,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
                         .padding(
                             horizontal = dimensionResource(R.dimen.email_list_only_horizontal_padding)
                         )
@@ -192,6 +196,7 @@ private fun ReplyAppContent(
                     navigationItemContentList = navigationItemContentList,
                     modifier = Modifier
                         .fillMaxWidth()
+                        .testTag(bottomNavigationContentDescription)
                 )
             }
         }
